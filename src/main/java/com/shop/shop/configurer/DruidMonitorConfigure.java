@@ -1,4 +1,4 @@
-package com.shop.shop.Configurer;
+package com.shop.shop.configurer;
 
 
 import com.alibaba.druid.support.http.StatViewServlet;
