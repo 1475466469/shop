@@ -4,53 +4,53 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://122.51.19.235:3306/shop?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://106.12.130.188:3306/shop?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
     druid:
-      #³õÊ¼»¯´óÐ¡
+      #å“ˆå“ˆ
       initialSize: 5
-      #×îÐ¡Öµ
+      #ï¿½ï¿½Ð¡Öµ
       minIdle: 5
-      #×î´óÖµ
+      #ï¿½ï¿½ï¿½Öµ
       maxActive: 20
-      #×î´óµÈ´ýÊ±¼ä£¬ÅäÖÃ»ñÈ¡Á¬½ÓµÈ´ý³¬Ê±£¬Ê±¼äµ¥Î»¶¼ÊÇºÁÃëms
-      maxWait: 60000
-      #ÅäÖÃ¼ä¸ô¶à¾Ã²Å½øÐÐÒ»´Î¼ì²â£¬¼ì²âÐèÒª¹Ø±ÕµÄ¿ÕÏÐÁ¬½Ó
+      #ï¿½ï¿½ï¿½È´ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½Ã»ï¿½È¡ï¿½ï¿½ï¿½ÓµÈ´ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½äµ¥Î»ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ms
+      maxWait: 600000
+      #ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½Ã²Å½ï¿½ï¿½ï¿½Ò»ï¿½Î¼ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ø±ÕµÄ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       timeBetweenEvictionRunsMillis: 60000
-      #ÅäÖÃÒ»¸öÁ¬½ÓÔÚ³ØÖÐ×îÐ¡Éú´æµÄÊ±¼ä
+      #ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
       minEvictableIdleTimeMillis: 300000
       validationQuery: SELECT 1 FROM DUAL
       testWhileIdle: true
       testOnBorrow: false
       testOnReturn: false
       poolPreparedStatements: true
-      # ÅäÖÃ¼à¿ØÍ³¼ÆÀ¹½ØµÄfilters£¬È¥µôºó¼à¿Ø½çÃæsqlÎÞ·¨Í³¼Æ£¬
-      #'wall'ÓÃÓÚ·À»ðÇ½£¬SpringBootÖÐÃ»ÓÐlog4j£¬ÎÒ¸Ä³ÉÁËlog4j2
+      # ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½filtersï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½sqlï¿½Þ·ï¿½Í³ï¿½Æ£ï¿½
+      #'wall'ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½Ç½ï¿½ï¿½SpringBootï¿½ï¿½Ã»ï¿½ï¿½log4jï¿½ï¿½ï¿½Ò¸Ä³ï¿½ï¿½ï¿½log4j2
       filters: stat,wall,log4j2
-      #×î´óPSCacheÁ¬½Ó
+      #ï¿½ï¿½ï¿½PSCacheï¿½ï¿½ï¿½ï¿½
       maxPoolPreparedStatementPerConnectionSize: 20
       useGlobalDataSourceStat: true
-      # Í¨¹ýconnectPropertiesÊôÐÔÀ´´ò¿ªmergeSql¹¦ÄÜ£»ÂýSQL¼ÇÂ¼
+      # Í¨ï¿½ï¿½connectPropertiesï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mergeSqlï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½SQLï¿½ï¿½Â¼
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-      # ÅäÖÃStatFilter
+      # ï¿½ï¿½ï¿½ï¿½StatFilter
       web-stat-filter:
-        #Ä¬ÈÏÎªfalse£¬ÉèÖÃÎªtrueÆô¶¯
+        #Ä¬ï¿½ï¿½Îªfalseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªtrueï¿½ï¿½ï¿½ï¿½
         enabled: true
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
-      #ÅäÖÃStatViewServlet
+      #ï¿½ï¿½ï¿½ï¿½StatViewServlet
       stat-view-servlet:
         url-pattern: "/druid/*"
-        #ÔÊÐíÄÇÐ©ip
+        #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ip
         allow: 127.0.0.1
         login-username: admin
         login-password: 123456
-        #½ûÖ¹ÄÇÐ©ip
+        #ï¿½ï¿½Ö¹ï¿½ï¿½Ð©ip
         deny: 192.168.1.102
-        #ÊÇ·ñ¿ÉÒÔÖØÖÃ
+        #ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         reset-enable: true
-        #ÆôÓÃ
+        #ï¿½ï¿½ï¿½ï¿½
         enabled: true
 
   jpa:
