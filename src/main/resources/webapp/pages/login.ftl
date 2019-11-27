@@ -1,16 +1,16 @@
+<#assign ctx = request.contextPath/>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>登录 - Guns</title>
+    <title>登录 - 商城后台</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="${ctxPath}/assets/common/layui/css/layui.css"/>
-    <link rel="stylesheet" href="${ctxPath}/assets/common/css/login.css" media="all">
+    <link rel="stylesheet" href="${ctx}/webapp/assets/common/layui/css/layui.css"/>
+    <link rel="stylesheet" href="${ctx}/webapp/assets/common/css/login.css" media="all">
     <style>
         body {
-            background-image: url("${ctxPath}/assets/common/images/bg_login2.svg");
+            background-image: url("${ctx}/webapp/assets/common/images/bg_login2.svg");
             background-position: center 110px;
             background-repeat: no-repeat;
             background-size: 100%;
@@ -43,15 +43,14 @@
 <div class="login-wrapper">
 
     <div class="login-header">
-        <img src="${ctxPath}/assets/expand/images/logo.png"> ${systemName}
+        <img src="${ctx}/webapp/assets/expand/images/logo.png">
     </div>
-
     <div class=" login-body">
         <div class="layui-card">
             <div class="layui-card-header">
                 <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;用户登录
             </div>
-            <form class="layui-card-body layui-form layui-form-pane" action="${ctxPath}/login" method="post">
+            <form class="layui-card-body layui-form layui-form-pane" action="${ctx}/login" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号</label>
                     <div class="layui-input-block">
@@ -71,20 +70,7 @@
                         <input type="radio" name="remember" value="off" title="否" checked="">
                     </div>
                 </div>
-                <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>-->
-                <!--<div class="layui-input-block">-->
-                <!--<div class="layui-row inline-block">-->
-                <!--<div class="layui-col-xs7">-->
-                <!--<input name="code" type="text" lay-verify="required" placeholder="验证码"-->
-                <!--class="layui-input">-->
-                <!--</div>-->
-                <!--<div class="layui-col-xs5" style="padding-left: 10px;">-->
-                <!--<img class="login-captcha" src="https://www.oschina.net/action/user/captcha">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
+
                 <div class="layui-form-item">
                     <a href="javascript:;" class="layui-link">帐号注册</a>
                     <a href="javascript:;" class="layui-link pull-right">忘记密码？</a>
@@ -92,56 +78,33 @@
                 <div class="layui-form-item">
                     <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
                 </div>
-                <div class="layui-form-item login-other">
-                    <label>第三方登录</label>
-                    <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-                    <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-                    <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
-                </div>
+<#--                <div class="layui-form-item login-other">-->
+<#--                    <label>第三方登录</label>-->
+<#--                    <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>-->
+<#--                    <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>-->
+<#--                    <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>-->
+<#--                </div>-->
             </form>
         </div>
     </div>
 
     <div class="login-footer">
-        <p>© 2018 <a href="https://www.stylefeng.cn" target="_blank">stylefeng版权所有</a></p>
+        <p> <a href="https://www.stylefeng.cn" target="_blank"></a></p>
     </div>
 </div>
 
-@/* 加入contextPath属性和session超时的配置 */
-<script type="text/javascript">
-    var Feng = {
-        ctxPath: "",
-        addCtx: function (ctx) {
-            if (this.ctxPath === "") {
-                this.ctxPath = ctx;
-            }
-        }
-    };
-    Feng.addCtx("${ctxPath}");
-</script>
-<script type="text/javascript" src="${ctxPath}/assets/common/layui/layui.js"></script>
-<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js"></script>
+<script type="text/javascript" src="${ctx}/webapp/assets/common/layui/layui.js"></script>
+
 
 <script>
     layui.use(['layer', 'form'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
-
         // 表单提交
         form.on('submit(login-submit)', function (obj) {
             return true;
         });
-
-        // 图形验证码
-        // $('.login-captcha').click(function () {
-        //     this.src = this.src + '?t=' + (new Date).getTime();
-        // });
-
-        var errorMsg = "${tips!}";
-        if (errorMsg) {
-            layer.msg(errorMsg, {icon: 5, anim: 6});
-        }
 
     });
 </script>

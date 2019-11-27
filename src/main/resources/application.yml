@@ -1,9 +1,12 @@
 server:
   port: 8181
 spring:
+
   freemarker:
     suffix: .ftl
-    template-loader-path: classpath:/webapp/pages
+    template-loader-path: classpath:/webapp/pages/
+    request-context-attribute: request
+    cache: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -58,4 +61,16 @@ spring:
 
   jpa:
     show-sql: true
+  mvc:
+    view:
+      prefix: classpath:/webapp/pages/
+      suffix: .ftl
+  resources:
+    static-locations: classpath:/static/,classpath:/webapp/assets,classpath:/webapp/pages
+  devtools:
+    restart:
+      enabled: true
+      exclude: src/main/java
+
+debug: true
 
