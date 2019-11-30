@@ -70,7 +70,6 @@
                         <input type="radio" name="remember" value="off" title="否" checked="">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <a href="javascript:;" class="layui-link">帐号注册</a>
                     <a href="javascript:;" class="layui-link pull-right">忘记密码？</a>
@@ -78,6 +77,7 @@
                 <div class="layui-form-item">
                     <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
                 </div>
+
 <#--                <div class="layui-form-item login-other">-->
 <#--                    <label>第三方登录</label>-->
 <#--                    <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>-->

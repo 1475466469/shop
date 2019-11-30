@@ -1,6 +1,15 @@
 server:
   port: 8181
 spring:
+  redis:
+    host: 106.12.130.188
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
 
   freemarker:
     suffix: .ftl
@@ -73,4 +82,5 @@ spring:
       exclude: src/main/java
 
 debug: true
+
 
