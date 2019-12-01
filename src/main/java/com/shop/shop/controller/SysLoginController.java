@@ -4,9 +4,11 @@ import com.shop.shop.util.ShiroKit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.awt.*;
@@ -25,7 +27,6 @@ public class SysLoginController {
 
     /*主页*/
     @RequestMapping(value = "/",method = RequestMethod.GET)
-
     public  String index(){
 
 
@@ -36,9 +37,8 @@ public class SysLoginController {
 
     /*登陆验证*/
     @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
     public  String loginVali(String username, String password, String remember) throws Exception{
-
-
         if (username.equals("")|| password.equals("")) {
             throw new Exception("账号或密码为空！");
         }
@@ -53,7 +53,7 @@ public class SysLoginController {
         //执行shiro登录操作
         currentUser.login(token);
 
-        return  "redirect:/";
+        return  "Sssss";
 
     }
 

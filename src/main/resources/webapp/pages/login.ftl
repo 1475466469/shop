@@ -50,22 +50,22 @@
             <div class="layui-card-header">
                 <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;用户登录
             </div>
-            <form class="layui-card-body layui-form layui-form-pane" action="${ctx}/login" method="post">
+            <form class="layui-card-body layui-form layui-form-pane" >
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号</label>
                     <div class="layui-input-block">
-                        <input name="username" type="text" lay-verify="required" class="layui-input">
+                        <input name="username" type="text" lay-verify="required" id="username" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input name="password" type="password" lay-verify="required" class="layui-input">
+                        <input name="password" type="password" lay-verify="required" id="password" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label" lay-tips="7天内免登陆">记住我</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" >
                         <input type="radio" name="remember" value="on" title="是">
                         <input type="radio" name="remember" value="off" title="否" checked="">
                     </div>
@@ -75,7 +75,7 @@
                     <a href="javascript:;" class="layui-link pull-right">忘记密码？</a>
                 </div>
                 <div class="layui-form-item">
-                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
+                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" id="lay-submit" lay-submit>登 录</button>
                 </div>
 
 <#--                <div class="layui-form-item login-other">-->
@@ -102,9 +102,20 @@
         var layer = layui.layer;
         var form = layui.form;
         // 表单提交
-        form.on('submit(login-submit)', function (obj) {
-            return true;
-        });
+        form.on('submit(login-submit)', function(data){
+            var username=$("#username").val();
+            var password=$("#password").val();
+            var remember=$("[name=remember]").val();
+                $.ajax({
+                    type:'POST',
+                    url:'/login',
+                    data:{username:username,password:password,remember:remember},
+                    success:function(data){
+                        console.log(data)
+                    }
+                })
+            return false;
+        })
 
 
 

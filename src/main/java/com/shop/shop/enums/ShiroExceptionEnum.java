@@ -2,11 +2,6 @@ package com.shop.shop.enums;
 
 
 
-import lombok.Getter;
-import lombok.Setter;
-
-
-
 public enum ShiroExceptionEnum {
 
     NOT_LOGIN(400,"用户未登陆");
