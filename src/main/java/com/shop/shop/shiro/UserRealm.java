@@ -4,17 +4,22 @@ import com.shop.shop.common.Constant;
 import com.shop.shop.entity.SysMenuEntity;
 import com.shop.shop.entity.SysUserEntity;
 import com.shop.shop.service.impl.SysMenuServiceimpl;
+import com.shop.shop.service.impl.SysRoleMenuServiceimpl;
 import com.shop.shop.service.impl.SysUserServiceimpl;
 import com.shop.shop.util.ShiroKit;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
+
+import org.apache.shiro.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserRealm  extends AuthorizingRealm
 {
@@ -24,13 +29,39 @@ public class UserRealm  extends AuthorizingRealm
     private SysUserServiceimpl sysUserServiceimpl;
     @Autowired
     private SysMenuServiceimpl sysMenuServiceimpl;
-
+    @Autowired
+    private SysRoleMenuServiceimpl sysRoleMenuServiceimpl;
     /**
      * 授权(验证权限时调用)
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+
+     SysUserEntity sysUserEntity=(SysUserEntity)principals.getPrimaryPrincipal();
+
+        //用户权限列表
+        Set<String> permsSet = new HashSet<String>();
+        List<String> permsList = null;
+        if(Constant.CURRENT_USER==sysUserEntity.getUserid()){   //=如果是管理员
+            List<SysMenuEntity> sysMenuEntityList=  sysMenuServiceimpl.findAll();
+            for (SysMenuEntity menuEntity: sysMenuEntityList) {
+                permsList.add(menuEntity.getPerms());
+            }
+        }else {
+            sysRoleMenuServiceimpl.findPermsByUserid(sysUserEntity.getId());
+        }
+        if(permsList!=null&permsList.size()>0){
+            for (String perms : permsList) {
+                if (perms.equals("")) {
+                    continue;
+                }
+                permsSet.addAll(Arrays.asList(perms.trim().split(",")));
+            }
+        }
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(permsSet);
+            return info;
     }
 
 
@@ -58,23 +89,15 @@ public class UserRealm  extends AuthorizingRealm
       }
 
         ShiroKit.setSessionAttr(Constant.CURRENT_USER,sysUserEntity);
-        List<String> permsList = null;
-        if(Constant.CURRENT_USER==sysUserEntity.getUserid()){   //=如果是管理员
-              List<SysMenuEntity> sysMenuEntityList=  sysMenuServiceimpl.findAll();
-            for (SysMenuEntity menuEntity: sysMenuEntityList) {
-                permsList.add(menuEntity.getPerms());
-            }
 
 
 
-        }
+        SimpleAuthenticationInfo simpleAuthenticationInfo=new SimpleAuthenticationInfo(sysUserEntity,sysUserEntity.getPassword(),getName());
 
 
 
 
 
-
-
-        return null;
+        return simpleAuthenticationInfo;
     }
 }

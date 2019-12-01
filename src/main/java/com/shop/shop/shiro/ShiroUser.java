@@ -1,13 +1,17 @@
 package com.shop.shop.shiro;
 
+
+
+
+
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 public class ShiroUser  implements Serializable {
 
     private static final long serialVersionUID = 1L;

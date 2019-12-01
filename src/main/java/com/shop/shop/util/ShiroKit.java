@@ -263,6 +263,7 @@ public class ShiroKit {
         if (user == null) {
             return shiroUser;
         }
+
         shiroUser.setId(user.getId());
         shiroUser.setAccount(user.getUserid());
         shiroUser.setDeptId(user.getDeptId());

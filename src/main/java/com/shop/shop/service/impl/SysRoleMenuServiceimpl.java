@@ -34,4 +34,12 @@ public class SysRoleMenuServiceimpl implements SysRoleMenuService {
     public void delete(SysRoleMenuEntity sysRoleMenuEntity) throws Exception {
         sysRoleMenuRepository.delete(sysRoleMenuEntity);
     }
+
+    public  List<String> findPermsByUserid(long id){
+
+       return sysRoleMenuRepository.findPermsByUserid(id);
+
+    }
+
+
 }

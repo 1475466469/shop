@@ -11,5 +11,9 @@ import java.util.Optional;
 
 public interface SysUserRepository  extends JpaRepository<SysUserEntity, Long> {
 
-    SysUserEntity findSysUserEntityByUserid(String username);
+    SysUserEntity findByUserid(String userid);
+
+
+
+
 }

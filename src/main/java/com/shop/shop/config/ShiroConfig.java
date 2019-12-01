@@ -1,7 +1,6 @@
 package com.shop.shop.config;
 
 import com.shop.shop.shiro.UserRealm;
-
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -9,17 +8,11 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-
 import org.apache.shiro.web.servlet.SimpleCookie;
-
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -156,7 +149,7 @@ public class ShiroConfig {
 
         hashMap.put("/login","anon");
         hashMap.put("/error/**","anon");
-        hashMap.put("/assets/**","anon");
+        hashMap.put("/webapp/assets/**","anon");
         hashMap.put("/**","authc");
         shiroFilter.setFilterChainDefinitionMap(hashMap);
         return shiroFilter;

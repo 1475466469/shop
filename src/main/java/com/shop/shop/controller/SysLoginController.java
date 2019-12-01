@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+import java.awt.*;
+
 @Controller
 public class SysLoginController {
 
@@ -19,9 +22,26 @@ public class SysLoginController {
          return "login";
     }
 
+
+    /*主页*/
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+
+    public  String index(){
+
+
+            return "index";
+
+
+    }
+
     /*登陆验证*/
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public  String loginVali(String username, String password, String remember){
+    public  String loginVali(String username, String password, String remember) throws Exception{
+
+
+        if (username.equals("")|| password.equals("")) {
+            throw new Exception("账号或密码为空！");
+        }
         Subject currentUser = ShiroKit.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username.trim(), password.trim().toCharArray());
         //如果开启了记住我功能
@@ -33,7 +53,7 @@ public class SysLoginController {
         //执行shiro登录操作
         currentUser.login(token);
 
-        return "11";
+        return  "redirect:/";
 
     }
 
