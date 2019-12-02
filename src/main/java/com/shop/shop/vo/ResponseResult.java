@@ -1,7 +1,11 @@
-package com.shop.shop.common;
+package com.shop.shop.vo;
+
+import lombok.Data;
 
 import java.io.Serializable;
 
+
+@Data
 public class ResponseResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -11,7 +15,8 @@ public class ResponseResult<T> implements Serializable {
     //消息
     private String msg;
     //数据
-    private  T date;
+    private  T data;
+
 
 
 }
