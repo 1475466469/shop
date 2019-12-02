@@ -1,12 +1,17 @@
 package com.shop.shop.entity;
 
+import javassist.SerialVersionUID;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "sys_user", schema = "shop", catalog = "")
-public class SysUserEntity {
+public class SysUserEntity implements Serializable {
+    public static final long SerialVersionUID=1L;
+
     private long id;
     private String userid;
     private String username;

@@ -82,5 +82,7 @@ spring:
       exclude: src/main/java
 
 debug: true
+shop:
+  swagger-open: true                #是否开启swagger (true/false)
 
 

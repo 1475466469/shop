@@ -1,6 +1,7 @@
 package com.shop.shop.controller;
 
 import com.shop.shop.util.ShiroKit;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -29,15 +30,14 @@ public class SysLoginController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public  String index(){
 
-
             return "index";
-
 
     }
 
     /*登陆验证*/
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value = "登陆方法")
     public  String loginVali(String username, String password, String remember) throws Exception{
         if (username.equals("")|| password.equals("")) {
             throw new Exception("账号或密码为空！");

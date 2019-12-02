@@ -19,12 +19,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
+@EnableSwagger2
 public class WebConfig implements WebMvcConfigurer, ErrorPageRegistrar {
     /**
      * druidServlet注册
      */
+
     @Bean
     public ServletRegistrationBean druidServletRegistration() {
         ServletRegistrationBean registration = new ServletRegistrationBean(new StatViewServlet());
@@ -93,14 +101,11 @@ public class WebConfig implements WebMvcConfigurer, ErrorPageRegistrar {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        if (gunsProperties.getSwaggerOpen()) {
-////
-////            //swagger
-////            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-////            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-////        }
 
-        //本应用
+        //swagger
+
+
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webapp/assets/**").addResourceLocations("classpath:/webapp/assets/");
         registry.addResourceHandler("/webapp/pages/**").addResourceLocations("classpath:/webapp/pages/");
     }
@@ -127,6 +132,11 @@ public class WebConfig implements WebMvcConfigurer, ErrorPageRegistrar {
         registry.addErrorPages(e404,e401,e500,e403);
 
     }
+
+
+
+
+
 
 
 
