@@ -1,11 +1,14 @@
 package com.shop.shop.shiro;
 
+import com.google.gson.reflect.TypeToken;
 import com.shop.shop.common.Constant;
 import com.shop.shop.entity.SysMenuEntity;
 import com.shop.shop.entity.SysUserEntity;
 import com.shop.shop.service.impl.SysMenuServiceimpl;
 import com.shop.shop.service.impl.SysRoleMenuServiceimpl;
 import com.shop.shop.service.impl.SysUserServiceimpl;
+import com.shop.shop.util.JsonUtil;
+import com.shop.shop.util.RedisUtil;
 import com.shop.shop.util.ShiroKit;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -14,11 +17,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import springfox.documentation.spring.web.json.Json;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class UserRealm  extends AuthorizingRealm
 {
@@ -44,18 +45,8 @@ public class UserRealm  extends AuthorizingRealm
         Set<String> permsSet = new HashSet<String>();
         List<String> permsList = null;
 
-
-        if(Constant.CURRENT_USER==sysUserEntity.getUserid()){   //=如果是管理员
-            List<SysMenuEntity> sysMenuEntityList=  sysMenuServiceimpl.findAll();
-            for (SysMenuEntity menuEntity: sysMenuEntityList) {
-                permsList.add(menuEntity.getPerms());
-            }
-        }else {
-
-
-            permsList=sysRoleMenuServiceimpl.findPermsByUserid(sysUserEntity.getId());
-        }
-
+        String json= RedisUtil.get(Constant.PERMS_LIST+sysUserEntity.getId());
+        permsList= (List<String>) JsonUtil.toObject(json,new TypeToken<List<String>>(){}.getType());
         if(permsList!=null&permsList.size()>0){
             for (String perms : permsList) {
                 if (perms.equals("")) {
@@ -92,10 +83,20 @@ public class UserRealm  extends AuthorizingRealm
       if(sysUserEntity.getStatus()==0){
           throw new LockedAccountException("账号已被锁定,请联系管理员");
       }
+        List<String> permsList = null;
+
+        if(Constant.CURRENT_USER==sysUserEntity.getUserid()){   //=如果是管理员
+            List<SysMenuEntity> sysMenuEntityList=  sysMenuServiceimpl.findAll();
+            for (SysMenuEntity menuEntity: sysMenuEntityList) {
+                permsList.add(menuEntity.getPerms());
+            }
+        }else {
 
 
+            permsList=sysRoleMenuServiceimpl.findPermsByUserid(sysUserEntity.getId());
+        }
 
-
+        RedisUtil.set(Constant.PERMS_LIST+sysUserEntity.getId(), JsonUtil.toJson(permsList));
 
         ShiroKit.setSessionAttr(Constant.CURRENT_USER,sysUserEntity);
 

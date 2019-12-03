@@ -1,5 +1,7 @@
 package com.shop.shop.controller;
 
+import com.shop.shop.util.JsonUtil;
+import com.shop.shop.util.RedisUtil;
 import com.shop.shop.util.ResultVOUtil;
 import com.shop.shop.util.ShiroKit;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SysLoginController {
@@ -26,7 +30,8 @@ public class SysLoginController {
     /*登陆页面*/
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public  String login(){
-         return "login";
+
+        return "login";
     }
 
 
