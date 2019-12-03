@@ -17,9 +17,8 @@ public interface SysRoleMenuRepository extends JpaRepository<SysRoleMenuEntity,L
 
 
 
-      @Query(value = "SELECT g.perms FROM sys_user AS a INNER JOIN  sys_role_user AS b ON a.id=b.userid" +
-              "INNER JOIN sys_role_menu AS d ON b.role_id=d.role_id" +
-              "INNER JOIN sys_menu AS g ON d.menu_id=g.menu_id" +
-              "WHERE a.id=:id ",nativeQuery = true)
+      @Query(value = "SELECT g.perms FROM sys_user AS a INNER JOIN  sys_role_user AS b ON a.id=b.userid INNER JOIN sys_role_menu AS d ON b.role_id=d.role_id INNER JOIN sys_menu AS g ON d.menu_id=g.menu_id WHERE a.id= ?1",nativeQuery = true)
        List<String> findPermsByUserid(@Param("id") long id);
+
+
 }

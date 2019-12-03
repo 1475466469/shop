@@ -13,7 +13,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-import org.apache.shiro.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -31,6 +30,8 @@ public class UserRealm  extends AuthorizingRealm
     private SysMenuServiceimpl sysMenuServiceimpl;
     @Autowired
     private SysRoleMenuServiceimpl sysRoleMenuServiceimpl;
+
+
     /**
      * 授权(验证权限时调用)
      */
@@ -42,14 +43,19 @@ public class UserRealm  extends AuthorizingRealm
         //用户权限列表
         Set<String> permsSet = new HashSet<String>();
         List<String> permsList = null;
+
+
         if(Constant.CURRENT_USER==sysUserEntity.getUserid()){   //=如果是管理员
             List<SysMenuEntity> sysMenuEntityList=  sysMenuServiceimpl.findAll();
             for (SysMenuEntity menuEntity: sysMenuEntityList) {
                 permsList.add(menuEntity.getPerms());
             }
         }else {
-            sysRoleMenuServiceimpl.findPermsByUserid(sysUserEntity.getId());
+
+
+            permsList=sysRoleMenuServiceimpl.findPermsByUserid(sysUserEntity.getId());
         }
+
         if(permsList!=null&permsList.size()>0){
             for (String perms : permsList) {
                 if (perms.equals("")) {
@@ -58,7 +64,6 @@ public class UserRealm  extends AuthorizingRealm
                 permsSet.addAll(Arrays.asList(perms.trim().split(",")));
             }
         }
-
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permsSet);
             return info;
@@ -88,13 +93,14 @@ public class UserRealm  extends AuthorizingRealm
           throw new LockedAccountException("账号已被锁定,请联系管理员");
       }
 
+
+
+
+
         ShiroKit.setSessionAttr(Constant.CURRENT_USER,sysUserEntity);
 
 
-
         SimpleAuthenticationInfo simpleAuthenticationInfo=new SimpleAuthenticationInfo(sysUserEntity,sysUserEntity.getPassword(),getName());
-
-
 
 
 
