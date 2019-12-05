@@ -1,7 +1,8 @@
-@/* 框架顶部 */
-<div class="layui-header">
+
+
+<div class="layui-header" @block="header">
     <div class="layui-logo">
-        <!--<img src="${ctxPath}/assets/common/images/logo.png"/>-->
+   <img src="${ctx}/webapp/assets/common/images/logo.png"/>
         <i class="layui-icon layui-icon-component"></i>
         <cite>&nbsp;${systemName}&emsp;</cite>
     </div>
@@ -10,17 +11,9 @@
             <a ew-event="flexible" title="侧边伸缩"><i class="layui-icon layui-icon-shrink-right"></i></a>
         </li>
         <li class="layui-nav-item" lay-unselect>
-            <a ew-event="refresh" title="刷新"><i class="layui-icon layui-icon-refresh-3"></i></a>
+ <a ew-event="refresh" title="刷新"><i class="layui-icon layui-icon-refresh-3"></i></a>
         </li>
-        <li class="layui-nav-item" lay-unselect>
-            <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=p4kqz45e" target="_blank">阿里云5折优惠券，点我领取</a>
-        </li>
-        <li class="layui-nav-item" lay-unselect>
-            <a style="color: #5FB878;" href="https://www.stylefeng.cn" target="_blank">Guns企业版，加群找群主买优惠</a>
-        </li>
-        <li class="layui-nav-item" lay-unselect>
-            <a style="color: #fe7300;" href="https://gitee.com/stylefeng/guns" target="_blank">请star支持一下Guns</a>
-        </li>
+
     </ul>
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item" lay-unselect>
@@ -31,12 +24,12 @@
         </li>
         <li class="layui-nav-item" lay-unselect>
             <a>
-                <img src="${avatar!}" class="layui-nav-img">
-                <cite>${name!"用户"}</cite>
+<#--                <img src="${avatar!}" class="layui-nav-img">-->
+<#--                <cite>${name!"用户"}</cite>-->
             </a>
             <dl class="layui-nav-child">
                 <dd lay-unselect>
-                    <a ew-href="${ctxPath}/system/user_info">个人中心</a>
+                   <a ew-href="${ctx}/webapp/system/user_info">个人中心</a>
                 </dd>
                 <dd lay-unselect>
                     <a id="setPsw">修改密码</a>

@@ -1,4 +1,4 @@
-@/* 框架的主界面 */
+
 <div class="layui-body">
     <div class="layui-tab" lay-allowClose="true" lay-filter="admin-pagetabs">
         <ul class="layui-tab-title">

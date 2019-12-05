@@ -219,12 +219,12 @@ public class ShiroKit {
      *
      * @return 当前用户信息
      */
-    public static String principal() {
+    public static SysUserEntity principal() {
         if (getSubject() != null) {
             Object principal = getSubject().getPrincipal();
-            return principal.toString();
+            return (SysUserEntity)principal;
         }
-        return "";
+       return null;
     }
 
     /**
@@ -263,7 +263,6 @@ public class ShiroKit {
         if (user == null) {
             return shiroUser;
         }
-
         shiroUser.setId(user.getId());
         shiroUser.setAccount(user.getUserid());
         shiroUser.setDeptId(user.getDeptId());

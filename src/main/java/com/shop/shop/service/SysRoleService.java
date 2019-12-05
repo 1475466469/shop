@@ -14,7 +14,7 @@ public interface SysRoleService {
 
     void delete(SysRoleEntity sysDeptEntity) throws Exception;
 
-
+    List<SysRoleEntity> findAllByUserid(long id);
 
 
 

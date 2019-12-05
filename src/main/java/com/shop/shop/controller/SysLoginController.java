@@ -1,5 +1,9 @@
 package com.shop.shop.controller;
 
+import com.shop.shop.entity.SysRoleEntity;
+import com.shop.shop.entity.SysUserEntity;
+import com.shop.shop.service.impl.SysRoleServiceimpl;
+import com.shop.shop.shiro.ShiroUser;
 import com.shop.shop.util.JsonUtil;
 import com.shop.shop.util.RedisUtil;
 import com.shop.shop.util.ResultVOUtil;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.awt.*;
@@ -24,8 +29,8 @@ import java.util.List;
 
 @Controller
 public class SysLoginController {
-
-
+        @Autowired
+        private SysRoleServiceimpl sysRoleServiceimpl;
 
     /*登陆页面*/
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -38,6 +43,18 @@ public class SysLoginController {
     /*主页*/
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public  String index(){
+
+        ModelAndView mv=new ModelAndView();
+
+      SysUserEntity sysUserEntity= ShiroKit.principal();
+//      获取当前用户的所有角色
+
+        List<SysRoleEntity> RoleList=  sysRoleServiceimpl.findAllByUserid(sysUserEntity.getId());
+
+
+
+
+      //  mv.addObject("userInfo",user);
 
             return "index";
 

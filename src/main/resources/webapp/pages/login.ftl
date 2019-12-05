@@ -1,8 +1,8 @@
-<#assign ctx = request.contextPath/>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>登录 - 商城后台</title>
+    <title>${systemName}</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -111,7 +111,11 @@
                     url:'/login',
                     data:{username:username,password:password,remember:remember},
                     success:function(data){
-                        console.log(data)
+                       if(data.code==0){
+                window.location.href="/"
+                       }else {
+                           layer.alert(data.msg);
+                       }
                     }
                 })
             return false;

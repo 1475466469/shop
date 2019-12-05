@@ -3,6 +3,7 @@ package com.shop.shop.service.impl;
 import com.shop.shop.entity.SysMenuEntity;
 import com.shop.shop.repository.SysMenuRepository;
 import com.shop.shop.service.SysMenuService;
+import com.shop.shop.vo.MenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,9 @@ public class SysMenuServiceimpl implements SysMenuService {
     @Override
     public void delete(SysMenuEntity sysMenuEntity) throws Exception {
         sysMenuRepository.delete(sysMenuEntity);
+    }
+
+    public  List<MenuVo> findAllByRoles(List<Integer> Roleids){
+      return   sysMenuRepository.findAllByRoles(Roleids);
     }
 }

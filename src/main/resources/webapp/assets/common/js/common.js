@@ -86,7 +86,7 @@ Feng.closeAllLoading = function () {
 
 // 以下代码是配置layui扩展模块的目录，每个页面都需要引入
 layui.config({
-    base: Feng.ctxPath + '/assets/common/module/'
+    base: Feng.ctxPath + '/webapp/assets/common/module/'
 }).extend({
     formSelects: 'formSelects/formSelects-v4',
     treetable: 'treetable-lay/treetable',

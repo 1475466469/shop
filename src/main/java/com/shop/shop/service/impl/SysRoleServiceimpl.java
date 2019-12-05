@@ -34,4 +34,10 @@ public class SysRoleServiceimpl implements SysRoleService {
     public void delete(SysRoleEntity sysDeptEntity) throws Exception {
         sysRoleRepository.delete(sysDeptEntity);
     }
+
+    @Override
+    public List<SysRoleEntity> findAllByUserid(long id){
+
+       return sysRoleRepository.findAllByUserid(id);
+    }
 }
