@@ -51,7 +51,14 @@ public class SysLoginController {
 
         List<SysRoleEntity> RoleList=  sysRoleServiceimpl.findAllByUserid(sysUserEntity.getId());
 
+        for (SysRoleEntity item:RoleList){
+            System.out.println(item.getRoleName());
 
+
+        }
+
+
+System.out.println("222");
 
 
       //  mv.addObject("userInfo",user);

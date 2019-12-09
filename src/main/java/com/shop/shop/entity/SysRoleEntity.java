@@ -13,6 +13,18 @@ public class SysRoleEntity {
     private Timestamp createDate;
     private String remake;
 
+    public SysRoleEntity(long roleId, String roleName, String createUserid, Timestamp createDate, String remake) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.createUserid = createUserid;
+        this.createDate = createDate;
+        this.remake = remake;
+    }
+
+    public SysRoleEntity() {
+
+    }
+
     @Id
     @Column(name = "role_id")
     public long getRoleId() {
