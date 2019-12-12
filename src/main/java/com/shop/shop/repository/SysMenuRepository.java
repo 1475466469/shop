@@ -12,9 +12,8 @@ import java.util.List;
 public interface SysMenuRepository extends JpaRepository<SysMenuEntity, Long> {
 
     /*根据角色获取菜单*/
-
-    @Query(value = "SELECT  b.* FROM  sys_role_menu a INNER JOIN sys_menu AS b ON a.menu_id= b.menu_id WHERE a.role_id IN (:Roles)",nativeQuery = true)
-    List<MenuVo> findAllByRoles(@Param("Roles") List<Integer> Roles);
-
+    @Query(value = "SELECT  b FROM  SysRoleMenuEntity  AS a INNER JOIN SysMenuEntity AS b ON a.menuId= b.menuId WHERE b.status=0 and b.parentId=0 and a.roleId IN (:Roles)")
+    List<SysMenuEntity> findAllByRoles(@Param("Roles") List<Long> Roles);
+    List<SysMenuEntity> findAllByParentId(long parentId);
 
 }

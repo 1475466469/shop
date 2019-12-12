@@ -1,13 +1,13 @@
 package com.shop.shop.controller;
 
+import com.shop.shop.entity.SysMenuEntity;
 import com.shop.shop.entity.SysRoleEntity;
 import com.shop.shop.entity.SysUserEntity;
+import com.shop.shop.service.impl.SysMenuServiceimpl;
 import com.shop.shop.service.impl.SysRoleServiceimpl;
 import com.shop.shop.shiro.ShiroUser;
-import com.shop.shop.util.JsonUtil;
-import com.shop.shop.util.RedisUtil;
-import com.shop.shop.util.ResultVOUtil;
-import com.shop.shop.util.ShiroKit;
+import com.shop.shop.util.*;
+import com.shop.shop.vo.MenuVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -31,6 +31,8 @@ import java.util.List;
 public class SysLoginController {
         @Autowired
         private SysRoleServiceimpl sysRoleServiceimpl;
+    @Autowired
+    private SysMenuServiceimpl sysMenuServiceimpl;
 
     /*登陆页面*/
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -43,26 +45,26 @@ public class SysLoginController {
     /*主页*/
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public  String index(){
-
         ModelAndView mv=new ModelAndView();
-
       SysUserEntity sysUserEntity= ShiroKit.principal();
 //      获取当前用户的所有角色
-
         List<SysRoleEntity> RoleList=  sysRoleServiceimpl.findAllByUserid(sysUserEntity.getId());
-
-        for (SysRoleEntity item:RoleList){
-            System.out.println(item.getRoleName());
-
-
+        //通过
+        List<Long> RoleIds=new ArrayList<Long>();
+        if(RoleList!=null&RoleList.size()>0){
+            for (SysRoleEntity item:RoleList
+                 ) {
+                RoleIds.add(item.getRoleId());
+            }
         }
-
-
-System.out.println("222");
-
-
-      //  mv.addObject("userInfo",user);
-
+        List<SysMenuEntity> MenuListVo= sysMenuServiceimpl.findAllByRoles(RoleIds);     //通过角色找到所有的父菜单
+        List<MenuVo> MenuvoList=new ArrayList<MenuVo>();
+        for (SysMenuEntity item:MenuListVo
+             ) {
+            MenuVo vo=  sysMenuServiceimpl.convertToMenVo(item);
+            MenuvoList.add(vo);
+        }
+        MenuvoList=new MenuTreeUtil().menuList(MenuvoList);
             return "index";
 
     }
