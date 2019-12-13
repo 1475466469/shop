@@ -53,40 +53,56 @@
 <script type="text/javascript" src="${ctx}/webapp/assets/common/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/webapp/assets/common/js/common.js"></script>
 
-<#--<script>-->
-<#--    layui.use(['layer', 'element', 'admin', 'index'], function () {-->
-<#--        var $ = layui.jquery;-->
-<#--        var layer = layui.layer;-->
-<#--        var admin = layui.admin;-->
-<#--        var index = layui.index;-->
+<script>
+    layui.use(['layer', 'element', 'admin', 'index'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var admin = layui.admin;
+        var index = layui.index;
 
-<#--        // 默认加载主页-->
-<#--        index2.loadHome({-->
-<#--            menuPath: '${ctx}/system/console',-->
-<#--            menuName: '<i class="layui-icon layui-icon-home"></i>'-->
-<#--        });-->
+        // 默认加载主页
+        index.loadHome({
+            menuPath: '${ctx}/system/console',
+            menuName: '<i class="layui-icon layui-icon-home"></i>'
+        });
 
-<#--        // 修改密码点击事件-->
-<#--        $('#setPsw').click(function () {-->
-<#--            admin.open({-->
-<#--                id: 'pswForm',-->
-<#--                type: 2,-->
-<#--                title: '修改密码',-->
-<#--                shade: 0,-->
-<#--                content: '${ctx}/system/user_chpwd'-->
-<#--            });-->
-<#--        });-->
+        // 修改密码点击事件
+        $('#setPsw').click(function () {
+            admin.open({
+                id: 'pswForm',
+                type: 2,
+                title: '修改密码',
+                shade: 0,
+                content: '${ctx}/system/user_chpwd'
+            });
+        });
 
-<#--        // 退出登录点击事件-->
-<#--        $('#btnLogout').click(function () {-->
-<#--            layer.confirm('确定退出登录？', {-->
-<#--                skin: 'layui-layer-admin'-->
-<#--            }, function () {-->
-<#--                window.location.href = "${ctx}/logout";-->
-<#--            });-->
-<#--        });-->
-<#--    });-->
-<#--</script>-->
+        // 退出登录点击事件
+        $('#btnLogout').click(function () {
+            layer.confirm('确定退出登录？', {
+                skin: 'layui-layer-admin'
+            }, function () {
+                window.location.href = "${ctx}/logout";
+            });
+        });
+    });
+</script>
+<script>
+
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(admin-side-nav)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+
+
+
+</script>
+
 </body>
 
 </html>

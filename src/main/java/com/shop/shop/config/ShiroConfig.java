@@ -75,7 +75,7 @@ public class ShiroConfig {
         redisManager.setPort(6379);
 
         //配置过期时间
-        redisManager.setExpire(1800);
+        redisManager.setExpire(18000);
         return  redisManager;
 
 
@@ -132,6 +132,10 @@ public class ShiroConfig {
          * 登陆成功后跳转的url
          */
         shiroFilter.setSuccessUrl("/");
+
+
+
+
         /**
          * 没有权限跳转的url
          */
@@ -144,6 +148,8 @@ public class ShiroConfig {
         hashMap.put("/error/**","anon");
         hashMap.put("/webapp/assets/**","anon");
         hashMap.put("/**","authc");
+        hashMap.put("/logout","logout");
+
         shiroFilter.setFilterChainDefinitionMap(hashMap);
         return shiroFilter;
     }

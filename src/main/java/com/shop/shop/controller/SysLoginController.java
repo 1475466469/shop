@@ -17,6 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,8 +45,8 @@ public class SysLoginController {
 
     /*主页*/
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public  String index(){
-        ModelAndView mv=new ModelAndView();
+    public  String index(Model model){
+
       SysUserEntity sysUserEntity= ShiroKit.principal();
 //      获取当前用户的所有角色
         List<SysRoleEntity> RoleList=  sysRoleServiceimpl.findAllByUserid(sysUserEntity.getId());
@@ -65,6 +66,9 @@ public class SysLoginController {
             MenuvoList.add(vo);
         }
         MenuvoList=new MenuTreeUtil().menuList(MenuvoList);
+
+        model.addAttribute("Menu",MenuvoList);
+
             return "index";
 
     }
@@ -98,6 +102,22 @@ public class SysLoginController {
         }
         return  ResultVOUtil.success("登陆成功");
     }
+
+
+
+
+
+//    /logout
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ApiOperation(value = "退出登录")
+    public String logout(){
+
+        ShiroKit.getSubject().logout();
+        return  "login";
+
+
+    }
+
 
 
 

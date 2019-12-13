@@ -1,45 +1,26 @@
 
 <div class="layui-side">
     <div class="layui-side-scroll">
+  <#macro childMenus Menu>
         <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" style="margin-top: 15px;">
-        @for(menu in menus) {
-            @if(tool.isEmpty(menu.children)){
-            <li class="layui-nav-item">
-                <a lay-href="${menu.url}"><i class="${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
-            </li>
-            @}else{
-            <li class="layui-nav-item">
-                <a><i class="${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
-                <dl class="layui-nav-child">
-                @for(subMenu in menu.children){
-                    @if(tool.isEmpty(subMenu.children)){
-                    <dd><a lay-href="${subMenu.url}">${subMenu.name}</a></dd>
-                    @}else{
-                    <dd>
-                        <a>${subMenu.name}</a>
-                        <dl class="layui-nav-child">
-                        @for(subSubMenu in subMenu.children){
-                            @if(tool.isEmpty(subSubMenu.children)){
-                            <dd><a lay-href="${subSubMenu.url}">${subSubMenu.name}</a></dd>
-                            @}else{
-                            <dd>
-                                <a>${subSubMenu.name}</a>
-                                <dl class="layui-nav-child">
-                                @for(subSubSubMenu in subSubMenu.children){
-                                    <dd><a lay-href="${subSubSubMenu.url}">${subSubSubMenu.name}</a></dd>
-                                @}
-                                </dl>
-                            </dd>
-                            @}
-                        @}
-                        </dl>
-                    </dd>
-                    @}
-                @}
-                </dl>
-            </li>
-            @}
-        @}
+            <#list Menu as menus>
+          <li class="layui-nav-item layui-nav-itemed">
+                       <a lay-href="${menus.url}"><i class="${menus.icon}"></i>&emsp;<cite>${menus.name}</cite></a>
+                        <#if menus.childrenMenu??>
+                            <dl class="layui-nav-child">
+                                <#list menus.childrenMenu as childrenMenu>
+                                    <dd><a lay-href="${childrenMenu.url}">${childrenMenu.name}</a></dd>
+                                    <#if childrenMenu.childrenMenu??>
+                                        <@childMenus childrenMenu.childrenMenu></@childMenus>
+                                    </#if>
+                                </#list>
+                            </dl>
+                        </#if>
+              </li>
+            </#list>
         </ul>
+            </#macro>
+        <@childMenus Menu></@childMenus>
+
     </div>
 </div>
